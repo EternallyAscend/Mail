@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Mail</title>
+    <meta charset="UTF-8" lang="en">
+
+</head>
+<body>
+    <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>
+    <center>
+        <br/>
+    <form method="Post" action="/index">
+        {% csrf_token %}
+        {% if login %}
+        <input type="hidden" value="{{login}}" name="login">
+        {% endif %}
+        Searching for Goods: <input type="text" name="name">
+        <input type="submit" value="Search">
+    </form>
+<!--    <form method="Post" action="/register">-->
+<!--        {% csrf_token %}-->
+<!--        <input type="submit" value="Register">-->
+<!--    </form>-->
+<!--    <form method="Post" action="login">-->
+<!--        {% csrf_token %}-->
+<!--        <input type="submit" value="Login">-->
+<!--    </form>-->
+    </center>
+    <center>
+        {% if login %}
+            <form method="POST" action="/user">
+                {% csrf_token %}
+                Current Account ID: {{login}}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="submit" value="Shopping Cart" name="button">
+                <input type="submit" value="My Order" name="button">
+                <input type="submit" value="Logout" name="button">
+            </form>
+        {% else %}
+            <form method="POST" action="/login">
+                {% csrf_token %}
+                <input type="submit" value="Login">
+            </form>
+        {% endif %}
+        <form method="Post" action="/list">
+            {% csrf_token %}
+            {% if login %}
+            <input type="hidden" value="{{login}}" name="login">
+            {% endif %}
+            <input type="submit" value="View the sales list" name="button">
+        </form>
+<!--        <form method="Post" action="/test">-->
+<!--            {% csrf_token %}-->
+<!--            {% if Result %}-->
+<!--            Well <input type="text" value="{{Result}}">-->
+<!--            {% endif %}-->
+<!--        </form>-->
+        <h4>{{Result}}</h4>
+    <table border="1px silver">
+        <ts>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Information</th>
+            <th>Remaining</th>
+            {% if login %}
+            <th>Add</th>
+            <th>Buy</th>
+            {% endif %}
+        </ts>
+        {% for item in Goods%}
+        <tr>
+            <th>{{item.Goods_Name}}</th>
+            <th>{{item.Goods_Type}}</th>
+            <th>{{item.Goods_Price}}</th>
+            <th>{{item.Goods_Information}}</th>
+            <th>{{item.Goods_Number}}</th>
+            {% if login %}
+            <th>
+                <form method="Post" action="/add">
+                    {% csrf_token %}
+                    <input type="hidden" name="login" value="{{login}}">
+                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">
+                    <input type="submit" name="Add" value="Add">
+                </form>
+            </th>
+            <th>
+                <form method="Post" action="/buy">
+                    {% csrf_token %}
+                    <input type="hidden" name="login" value="{{login}}">
+                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">
+                    <input type="submit" name="Buy" value="Buy">
+                </form>
+            </th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    </center>
+</body>
+<footer>
+    <center>
+        <div>
+            <p style="font-size: 10px">1813045</p>
+            <p id="BottomTime">Time</p>
+            <p style="font-size: 10px">&copy;2020 Nankai University.</p>
+        </div>
+    </center>
+    <script type="JavaScript">
+        function refreshTime(){
+
+        }
+        var BottomTime=document.getElementById('BottomTime');
+        
+    </script>
+</footer>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Information</title>
+</head>
+<body>
+    {% if login %}
+        {% if empty %}
+            <center>
+                <h3>{{empty}}</h3>
+            </center>
+        {% else %}
+        <center>
+            <h3>Your Order Information of ID: {{orderID}}</h3>
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
+            <table border="1px">
+                <tr>
+                    <td>Order ID</td>
+                    <td>Goods ID</td>
+                    <td>Goods Type</td>
+                    <td>Goods Name</td>
+                    <td>Shop ID</td>
+                    <td>Seller ID</td>
+                    <td>Price</td>
+                    <td>Number</td>
+                    <td>Time</td>
+                </tr>
+<!--                {{ order }}-->
+                {% for item in order%}
+                    <tr>
+                        <td>
+                            {{item.Customer_Order_ID}}
+                        </td>
+                        <td>
+                            {{item.Goods_ID}}
+                        </td>
+                        <td>
+                            {{item.Goods_Type}}
+                        </td>
+                        <td>
+                            {{item.Goods_Name}}
+                        </td>
+                        <td>
+                            {{item.Goods_Shop_ID}}
+                        </td>
+                        <td>
+<!--    ####    Here                           ## Here-->
+                            {{item.Order_Deital_Seller_ID}}
+                        </td>
+                        <td>
+                            {{item.Order_Detial_Price}}
+                        </td>
+                        <td>
+                            {{item.Order_Detial_Number}}
+                        </td>
+                        <td>
+                            {{ item.Customer_Order_Time }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </center>
+        {% endif %}
+    {% else %}
+        <center>
+            <h3 style="color: red;">You need to login in order to find your order.</h3>
+        </center>
+    {% endif %}
+</body>
+<footer>
+    <center>
+        <div>
+            <p style="font-size: 10px">1813045</p>
+            <p style="font-size: 10px">&copy;2020 Nankai University.</p>
+        </div>
+    </center>
+</footer>
+</html>

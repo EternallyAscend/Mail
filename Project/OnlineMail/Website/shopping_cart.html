@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<center>
+    <div style="position: fixed; left: -100px; top :-100px">Online Mail</div>
+    <center><div>
+        <h3>Shopping Cart</h3>
+    </div></center>
+    {% if login %}
+        {% if empty %}
+            <h4 style="color: red;">{{empty}}</h4>
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
+        {% else %}
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
+            <form method="Post" action="/settlement">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="submit" value="Settlement" name="settlement">
+            </form>
+            <table border="1px">
+                <tr>
+                    <td>Goods_ID</td>
+                    <td>Amount</td>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td>Price</td>
+                    <td>Time</td>
+                    <td>Manage</td>
+                </tr>
+            {% for item in shopping_cart %}
+                <tr>
+                    <td>{{item.Shopping_Cart_Goods_ID}}</td>
+                    <td>{{item.Shopping_Cart_Goods_Number}}</td>
+                    <td>{{item.Goods_Type}}</td>
+                    <td>{{item.Goods_Name}}</td>
+                    <td>{{item.Goods_Price}}</td>
+                    <td>{{item.Shopping_Cart_Time}}</td>
+                    <td>
+                        <form method="Post" action="/manageCart">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{login}}" name="login">
+                            <input type="hidden" value="{{item.Shopping_Cart_Goods_ID}}" name="goods_id">
+                            <input type="submit" value="-" name="button">
+                            <input type="submit" value="+" name="button">
+                            <input type="submit" value="Delete" name="button">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+
+    <hr/>
+<!--            {{ shopping_cart }}-->
+<!--            {{ goods }}-->
+        {% endif %}
+    {% else %}
+        <h2 style="color: red;">You are not online.</h2>
+    {% endif %}
+</center>
+</body>
+<footer>
+    <center>
+        <div>
+            <p style="font-size: 10px">1813045</p>
+            <p style="font-size: 10px">&copy;2020 Nankai University.</p>
+        </div>
+    </center>
+</footer>
+</html>
