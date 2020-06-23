@@ -150,7 +150,7 @@ def User(request):
         content = {}
         content['login'] = login
 
-        return render(request,'',content)
+        return render(request,'deposit.html',content)
 
 def Add(request):
     login=request.POST['login']
