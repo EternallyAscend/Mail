@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Online Mail</title>
-    <meta charset="UTF-8" lang="en">
-
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
 </head>
 <body>
+    <div style="position: fixed; left: -100px; top :-100px">Online Mail</div>
     <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>
 <!--    User Information and Operations-->
     <div style="position: fixed; left: 0px; top: 0px; width: 100%; background-color:orange; height: 30px;">
         <div style="position: absolute; left: 10px; color: white; text-align: center; margin: 5px auto;">Online Mail</div>
         {% if login %}
             <div style="position: absolute; right: 20px;">
+
                 <form method="Post" action="/user" style="vertical-align: middle;">
                     {% csrf_token %}
                     <span style="color: white; font-size: 10px;">Current Account: {{login}}</span>
@@ -49,28 +50,70 @@
     <div style="margin-top: 30px; width: 100%;">
         <center>
 
-        <h2>Login</h2>
+
+    <center><div>
+        <h3>Shopping Cart</h3>
+    </div></center>
+    {% if login %}
+        {% if empty %}
             <form method="Post" action="/index">
                 {% csrf_token %}
                 <input type="hidden" value="{{login}}" name="login">
                 <input type="hidden" value="" name="name">
                 <input type="submit" value="Go Index" name="Submit">
             </form>
-        <h4 style="color: red;">{{wrong}}</h4>
-        <h4>{{register}}</h4>
-            <h4>{{account}}</h4>
-        <form method="Post" action="/finish_login">
-            {% csrf_token %}
-            Your Accounts: <input type="text" name="Account">
+            <h4 style="color: red;">{{empty}}</h4>
+        {% else %}
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
             <br/>
-            Your Password: <input type="password" name="Password">
-            <br/>
-            <br/>
-            <input type="reset" value="Reset">
-            <input type="Submit" value="Login">
-        </form>
-            <br/>
-    </center>
+            <table border="1px">
+                <tr>
+                    <td>Goods_ID</td>
+                    <td>Amount</td>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td>Price</td>
+                    <td>Time</td>
+                    <td>Manage</td>
+                </tr>
+            {% for item in shopping_cart %}
+                <tr>
+                    <td>{{item.Shopping_Cart_Goods_ID}}</td>
+                    <td>{{item.Shopping_Cart_Goods_Number}}</td>
+                    <td>{{item.Goods_Type}}</td>
+                    <td>{{item.Goods_Name}}</td>
+                    <td>{{item.Goods_Price}}</td>
+                    <td>{{item.Shopping_Cart_Time}}</td>
+                    <td>
+                        <form method="Post" action="/manageCart">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{login}}" name="login">
+                            <input type="hidden" value="{{item.Shopping_Cart_Goods_ID}}" name="goods_id">
+                            <input type="submit" value="-" name="button">
+                            <input type="submit" value="+" name="button">
+                            <input type="submit" value="Delete" name="button">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            <br>
+            <form method="Post" action="/settlement">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="submit" value="Settlement" name="settlement">
+            </form>
+
+        {% endif %}
+    {% else %}
+        <h2 style="color: red;">You are not online.</h2>
+    {% endif %}
+</center>
     </div>
 </body>
 <script type="text/javascript">

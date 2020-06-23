@@ -7,11 +7,76 @@
 </head>
 <body>
     <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>
+<!--    New Body-->
+    <div style="margin-top: 30px; width: 100%;">
+        <center>
+        <form method="Post" action="/index">
+            {% csrf_token %}
+            {% if login %}
+            <input type="hidden" value="{{login}}" name="login">
+            {% endif %}
+            Searching for Goods:
+            <input type="text" name="name">
+            <input type="submit" value="Search">
+        </form>
+        <div style="position: absolute; right: 20px; top: 30px;">
+        <form method="Post" action="/list">
+            {% csrf_token %}
+            {% if login %}
+            <input type="hidden" value="{{login}}" name="login">
+            {% endif %}
+            <input type="submit" value="View the sales list" name="button">
+        </form>
+        </div>
+            <h4>{{Result}}</h4>
+            <table border="1px silver">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Information</th>
+            <th>Remaining</th>
+            {% if login %}
+            <th>Add</th>
+            <th>Buy</th>
+            {% endif %}
+        </tr>
+        {% for item in Goods%}
+        <tr>
+            <th>{{item.Goods_Name}}</th>
+            <th>{{item.Goods_Type}}</th>
+            <th>{{item.Goods_Price}}</th>
+            <th>{{item.Goods_Information}}</th>
+            <th>{{item.Goods_Number}}</th>
+            {% if login %}
+            <th>
+                <form method="Post" action="/add">
+                    {% csrf_token %}
+                    <input type="hidden" name="login" value="{{login}}">
+                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">
+                    <input type="submit" name="Add" value="Add">
+                </form>
+            </th>
+            <th>
+                <form method="Post" action="/buy">
+                    {% csrf_token %}
+                    <input type="hidden" name="login" value="{{login}}">
+                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">
+                    <input type="submit" name="Buy" value="Buy">
+                </form>
+            </th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+        </center>
+    </div>
 <!--    User Information and Operations-->
     <div style="position: fixed; left: 0px; top: 0px; width: 100%; background-color:orange; height: 30px;">
         <div style="position: absolute; left: 10px; color: white; text-align: center; margin: 5px auto;">Online Mail</div>
         {% if login %}
             <div style="position: absolute; right: 20px;">
+
                 <form method="Post" action="/user" style="vertical-align: middle;">
                     {% csrf_token %}
                     <span style="color: white; font-size: 10px;">Current Account: {{login}}</span>
@@ -44,36 +109,8 @@
             <div id="BottomTime" style="font-size: 15px; color: white; width: 200px;"></div>
         </center>
     </div>
-
-<!--    New Body-->
-    <div style="margin-top: 30px; width: 100%;">
-        <center>
-
-        <h2>Login</h2>
-            <form method="Post" action="/index">
-                {% csrf_token %}
-                <input type="hidden" value="{{login}}" name="login">
-                <input type="hidden" value="" name="name">
-                <input type="submit" value="Go Index" name="Submit">
-            </form>
-        <h4 style="color: red;">{{wrong}}</h4>
-        <h4>{{register}}</h4>
-            <h4>{{account}}</h4>
-        <form method="Post" action="/finish_login">
-            {% csrf_token %}
-            Your Accounts: <input type="text" name="Account">
-            <br/>
-            Your Password: <input type="password" name="Password">
-            <br/>
-            <br/>
-            <input type="reset" value="Reset">
-            <input type="Submit" value="Login">
-        </form>
-            <br/>
-    </center>
-    </div>
 </body>
-<script type="text/javascript">
+    <script type="text/javascript">
         function refreshTime(){
             var dt = new Date();
             var y=dt.getYear()+1900;
