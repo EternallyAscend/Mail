@@ -73,6 +73,10 @@ def Show_Index(request):
 
 
 def Login(request):
+    if request.POST['button']:
+        pass
+    else:
+        pass
     return render(request,'login.html')
 
 def Finish_Login(request):
@@ -127,7 +131,7 @@ def User(request):
                 sql="select * from goods where Goods_ID like %s;"
                 cursor.execute(sql, [data[i]['Shopping_Cart_Goods_ID']])
                 good_info=cursor.fetchall()
-                print(good_info[0])
+                # print(good_info[0])
                 data[i].update(good_info[0])
             # item=[]
             # for i in data:
@@ -141,6 +145,12 @@ def User(request):
         else:
             content['empty']="Your Shopping Cart is Empty."
         return render(request,'shopping_cart.html',content)
+    if str(request.POST['botton'])=="":
+        login = request.POST['login']
+        content = {}
+        content['login'] = login
+
+        return render(request,'',content)
 
 def Add(request):
     login=request.POST['login']

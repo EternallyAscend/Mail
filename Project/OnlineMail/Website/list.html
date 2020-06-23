@@ -6,6 +6,8 @@
 </head>
 <body>
     <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>
+    <!--    New Body-->
+    <div style="margin-top: 30px; width: 100%;">
     <center>
         <h3>View the Sale List</h3>
     {% if login %}
@@ -122,13 +124,67 @@
         {% endif %}
         </table>
     </center>
-</body>
-<footer>
-    <center>
-        <div>
-            <p style="font-size: 10px">1813045</p>
-            <p style="font-size: 10px">&copy;2020 Nankai University.</p>
+</div>
+<!--    User Information and Operations-->
+    <div style="position: fixed; left: 0px; top: 0px; width: 100%; background-color:orange; height: 30px;">
+        <div style="position: absolute; left: 10px; color: white; text-align: center; margin: 5px auto;">Online Mail</div>
+        {% if login %}
+            <div style="position: absolute; right: 20px;">
+
+                <form method="Post" action="/user" style="vertical-align: middle;">
+                    {% csrf_token %}
+                    <span style="color: white; font-size: 10px;">Current Account: {{login}}</span>
+                    <input type="hidden" value="{{login}}" name="login">
+                    <input type="submit" value="Shopping Cart" name="button">
+                    <input type="submit" value="My Order" name="button">
+                    <input type="submit" value="Logout" name="button">
+                    <input type="submit" value="Deposit Money" name="button">
+                </form>
+            </div>
+        {% else %}
+            <div style="position: absolute; right: 20px;">
+                <form method="Post" action="/login">
+                    {% csrf_token %}
+                    <input type="submit" value="Login" name="button">
+                    <input type="submit" value="Register" name="button">
+                </form>
+            </div>
+        {% endif %}
+    </div>
+<!--    Footer Information-->
+    <div style="position: fixed; left: 0px; bottom: 0px; background-color: grey; width: 100%; height: 20px;">
+        <div style="position: absolute; left: 10px; font-size: 15px; color: white">
+            Student ID: 1813045
         </div>
-    </center>
-</footer>
+        <div style="position: absolute; right: 10px; font-size: 15px; color: white;">
+            &copy;2020
+        </div>
+        <center>
+            <div id="BottomTime" style="font-size: 15px; color: white; width: 200px;"></div>
+        </center>
+    </div>
+</body>
+<script type="text/javascript">
+        function refreshTime(){
+            var dt = new Date();
+            var y=dt.getYear()+1900;
+            var m=dt.getMonth()+1;
+            var d=dt.getDate();
+            var day=dt.getDay();
+            var h=dt.getHours();
+            var min=dt.getMinutes();
+            var s=dt.getSeconds();
+            if(h<10){
+                h="0"+h;
+            }
+            if(min<10){
+                min="0"+min;
+            }
+            if(s<10){
+                s="0"+s;
+            }
+            document.getElementById('BottomTime').innerHTML = y+"."+m+"."+d+" "+h+":"+min+":"+s;
+        }
+        setInterval(refreshTime,100);
+    </script>
 </html>

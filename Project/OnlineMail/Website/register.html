@@ -34,12 +34,27 @@
         </center>
     </form>
 </body>
-<footer>
-    <center>
-        <div>
-            <p style="font-size: 10px">1813045</p>
-            <p style="font-size: 10px">&copy;2020 Nankai University.</p>
-        </div>
-    </center>
-</footer>
+<script type="text/javascript">
+        function refreshTime(){
+            var dt = new Date();
+            var y=dt.getYear()+1900;
+            var m=dt.getMonth()+1;
+            var d=dt.getDate();
+            var day=dt.getDay();
+            var h=dt.getHours();
+            var min=dt.getMinutes();
+            var s=dt.getSeconds();
+            if(h<10){
+                h="0"+h;
+            }
+            if(min<10){
+                min="0"+min;
+            }
+            if(s<10){
+                s="0"+s;
+            }
+            document.getElementById('BottomTime').innerHTML = y+"."+m+"."+d+" "+h+":"+min+":"+s;
+        }
+        setInterval(refreshTime,100);
+    </script>
 </html>
