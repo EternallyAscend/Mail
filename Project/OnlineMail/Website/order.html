@@ -44,7 +44,7 @@
                         </td>
 
                             {% if item.Customer_Order_Status == 'F' %}
-                            <td>Finished</td>
+                            <td style="color: #A5C261;">Finished</td>
                             <td>
                             <form method="Post" action="/order_manage">
                                 {% csrf_token %}
@@ -58,7 +58,7 @@
                             </td>
                             {% endif %}
                             {% if item.Customer_Order_Status == 'D' %}
-                            <td>Draft</td>
+                            <td style="color: #E7AB4E">Draft</td>
                             <td>
                             <form method="Post" action="/order_manage">
                                 {% csrf_token %}
@@ -72,7 +72,7 @@
                             </td>
                             {% endif %}
                             {% if item.Customer_Order_Status == 'C' %}
-                            <td>Cancel</td>
+                            <td style="color: red;">Cancel</td>
                             <td>
                                 <form method="Post" action="/order_manage">
                                     {% csrf_token %}
@@ -84,7 +84,7 @@
                             </td>
                             {% endif %}
                             {% if item.Customer_Order_Status == 'R' %}
-                            <td>Running</td>
+                            <td style="color: #5597B4;">Running</td>
                             <td>
                                 <form method="Post" action="/order_manage">
                                     {% csrf_token %}
@@ -98,7 +98,7 @@
                             </td>
                             {% endif %}
                             {% if item.Customer_Order_Status == 'E' %}
-                            <td>Exchange</td>
+                            <td style="color: orange;">Exchange</td>
                             <td>
                                 <form method="Post" action="/order_manage">
                                     {% csrf_token %}

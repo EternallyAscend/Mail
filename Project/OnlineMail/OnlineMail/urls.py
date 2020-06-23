@@ -30,6 +30,6 @@ urlpatterns = [
     url(r'^manageCart',OnlineMail.Shopping_Cart_Manage),
     url(r'^settlement$',OnlineMail.Settlement),
     url(r'^list$',OnlineMail.Show_List),
-    # managemoney
+    url(r'^manageMoney$',OnlineMail.manageMoney),
     url(r'',OnlineMail.Show_Index),
 ]

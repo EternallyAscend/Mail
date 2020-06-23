@@ -25,104 +25,109 @@
             <input type="submit" value="Go Index" name="Submit">
         </form>
     {% endif %}
-        {% if weekGoods %}
-        <h4>Goods Last Week</h4>
-            <table border="1px">
-                <tr>
-                    <td>Good ID</td>
-                    <td>Sales</td>
-                </tr>
-                {% for item in weekGoods %}
+        <div style="position: absolute; left: 0px; width: 50%; background-color: ;">
+            {% if weekGoods %}
+            <h4>Goods Last Week</h4>
+                <table border="1px">
                     <tr>
-                        <td>{{item.id}}</td>
-                        <td>{{item.number}}</td>
+                        <td>Good ID</td>
+                        <td>Sales</td>
                     </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-        {% if MonthGoods %}
-        <h4>Goods Last Month</h4>
-            <table border="1px">
-                <tr>
-                    <td>Good ID</td>
-                    <td>Sales</td>
-                </tr>
-                {% for item in MonthGoods %}
+                    {% for item in weekGoods %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.number}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if weekTypes %}
+            <h4>Types Last Week</h4>
+                <table border="1px">
                     <tr>
-                        <td>{{item.id}}</td>
-                        <td>{{item.number}}</td>
+                        <td>Type</td>
+                        <td>Sales</td>
                     </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-        {% if weekTypes %}
-        <h4>Types Last Week</h4>
-            <table border="1px">
-                <tr>
-                    <td>Type</td>
-                    <td>Sales</td>
-                </tr>
-                {% for item in weekTypes %}
+                    {% for item in weekTypes %}
+                        <tr>
+                            <td>{{item.type}}</td>
+                            <td>{{item.number}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if top %}
+            <h4>Goods Top 3</h4>
+                <table border="1px">
                     <tr>
-                        <td>{{item.type}}</td>
-                        <td>{{item.number}}</td>
+                        <td>Good ID</td>
+                        <td>Sales</td>
                     </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-        {% if MonthTypes %}
-        <h4>Types Last Month</h4>
-            <table border="1px">
-                <tr>
-                    <td>Type</td>
-                    <td>Sales</td>
-                </tr>
-                {% for item in MonthTypes %}
+                    {% for item in top %}
+                        <tr>
+                            <td>{{item.order_detial_goods_id}}</td>
+                            <td>{{item.count}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+        <div style="position: absolute; right: 0px; width: 50%; background-color: ;">
+            {% if MonthGoods %}
+            <h4>Goods Last Month</h4>
+                <table border="1px">
                     <tr>
-                        <td>{{item.type}}</td>
-                        <td>{{item.number}}</td>
+                        <td>Good ID</td>
+                        <td>Sales</td>
                     </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-        {% if top %}
-        <h4>Goods Top 3</h4>
+                    {% for item in MonthGoods %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.number}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if MonthTypes %}
+            <h4>Types Last Month</h4>
+                <table border="1px">
+                    <tr>
+                        <td>Type</td>
+                        <td>Sales</td>
+                    </tr>
+                    {% for item in MonthTypes %}
+                        <tr>
+                            <td>{{item.type}}</td>
+                            <td>{{item.number}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if unsold %}
+            <h4>Goods Bottom 3</h4>
             <table border="1px">
-                <tr>
-                    <td>Good ID</td>
-                    <td>Sales</td>
-                </tr>
-                {% for item in top %}
+                    <tr>
+                        <td>Good ID</td>
+                        <td>Sales</td>
+                    </tr>
+                {% if bottom %}
+                {% for item in bottom %}
                     <tr>
                         <td>{{item.order_detial_goods_id}}</td>
                         <td>{{item.count}}</td>
                     </tr>
                 {% endfor %}
-            </table>
-        {% endif %}
-        {% if unsold %}
-        <h4>Goods Bottom 3</h4>
-        <table border="1px">
-                <tr>
-                    <td>Good ID</td>
-                    <td>Sales</td>
-                </tr>
-            {% if bottom %}
-            {% for item in bottom %}
-                <tr>
-                    <td>{{item.order_detial_goods_id}}</td>
-                    <td>{{item.count}}</td>
-                </tr>
-            {% endfor %}
+                {% endif %}
+                {% for item in unsold %}
+                    <tr>
+                        <td>{{item.goods_id}}</td>
+                        <td>0</td>
+                    </tr>
+                {% endfor %}
             {% endif %}
-            {% for item in unsold %}
-                <tr>
-                    <td>{{item.goods_id}}</td>
-                    <td>0</td>
-                </tr>
-            {% endfor %}
-        {% endif %}
         </table>
+    <br/><br/>
+        </div>
     </center>
 </div>
 <!--    User Information and Operations-->

@@ -73,11 +73,10 @@ def Show_Index(request):
 
 
 def Login(request):
-    if request.POST['button']:
-        pass
+    if request.POST['button']=="Register":
+        return render(request,'register.html')
     else:
-        pass
-    return render(request,'login.html')
+        return render(request,'login.html')
 
 def Finish_Login(request):
     status=False
@@ -584,6 +583,67 @@ def Show_List(request):
     database.commit()
     return render(request,'list.html',content)
 
+def manageMoney(request):
+    login=request.POST['login']
+    content={}
+    content['login']=login
+    database = ms.connect("localhost", "root", "root", "mail", port=3306, cursorclass=ms.cursors.DictCursor)
+    cursor = database.cursor()
+    database.begin()
+    sql="select customer_funds from customer where customer_id like %s;"
+    cursor.execute(sql,[login])
+    money=cursor.fetchall()[0]['customer_funds']
+    try:
+        deposit=request.POST['deposit']
+        deposit=str(deposit)
+        if deposit[0]=='¥':
+            deposit=deposit[1:]
+        deposit=float(deposit)
+        if deposit<0:
+            wrong="Wrong deposit number, please input a positive number."
+            content['wrong']=wrong
+        else:
+            if deposit!=0:
+                sql="update customer set customer_funds=%s where customer_id like %s;"
+                cursor.execute(sql,[float(money)+deposit,login])
+                cursor.fetchall()
+                database.commit()
+    except:
+        try:
+            withdraw=request.POST['withdraw']
+            print(withdraw)
+            withdraw=str(withdraw)
+            if withdraw[0]=='¥':
+                withdraw=withdraw[1:]
+            withdraw=float(withdraw)
+            if withdraw<0:
+                wrong="Wrong withdraw number, please input a positive number."
+                content['wrong']=wrong
+            else:
+                if withdraw!=0:
+                    if withdraw>money:
+                        wrong="You cannot withdraw more than what you have currently."
+                        content['wrong']=wrong
+                    else:
+                        sql="update customer set customer_funds=%s where customer_id like %s;"
+                        cursor.execute(sql,[float(money)-withdraw,login])
+                        cursor.fetchall()
+                        database.commit()
+        except:
+            wrong="Wrong, Please Try Again with Right Value."
+            content['wrong']=wrong
+            pass
+    sql = "select customer_funds from customer where customer_id like %s;"
+    cursor.execute(sql, [login])
+    money = cursor.fetchall()[0]
+    content['money']=money
+    if int(money['customer_funds']) > 10:
+        withdraw = []
+        temp = (money['customer_funds'] - money['customer_funds'] % 10) / 4
+        for i in range(0, 3):
+            withdraw.append(temp * (i + 1))
+        content['withdraw'] = withdraw
+    return render(request,'deposit.html',content)
 #  db = pymysql.connect("localhost", "root", “password", "test", port=3306, cursorclass = pymysql.cursors.DictCursor)
 #  cursor = db.cursor()
 #  ctx = {}

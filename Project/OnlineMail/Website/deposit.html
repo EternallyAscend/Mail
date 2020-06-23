@@ -17,6 +17,7 @@
                 <input type="submit" value="Go Index" name="Submit">
             </form>
             <br/>
+            <h3 style="color:red;">{{wrong}}</h3>
             <div style="">
                 Your current money is &yen;{{money.customer_funds}}.
             </div>
@@ -24,7 +25,11 @@
             <div style="position: absolute; left: 0; width: 50%; background-color: white; color: #A5C261;">
                 Deposit Money
                 <br/>
-                <form method="Post" action="manageMoney">
+                <form method="Post" action="/manageMoney">
+                    {% csrf_token %}
+                    <br/>
+                    &yen;<input type="input" value="10000.00" name="deposit" style="color: #A5C261">
+                    <input type="submit" value="Deposit" name="submit" style="color: #A5C261">
                     <br/>
                     <input type="hidden" value="{{login}}" name="login">
                     <input type="submit" value="&yen;100.00" name="deposit" style="color: #A5C261">
@@ -34,23 +39,21 @@
                     <input type="submit" value="&yen;1000.00" name="deposit" style="color: #A5C261">
                     <input type="submit" value="&yen;2000.00" name="deposit" style="color: #A5C261">
                     <input type="submit" value="&yen;5000.00" name="deposit" style="color: #A5C261">
-                    <br/>
-                    &yen;<input type="input" value="10000.00" name="deposit" style="color: #A5C261">
-                    <input type="submit" value="Deposit" name="submit" style="color: #A5C261">
 
                 </form>
             </div>
             <div style="position: absolute; right: 0; width: 50%; background-color: white; color: #DD4F43;">
                 Withdraw Money
-                <form method="Post" action="manageMoney">
+                <form method="Post" action="/manageMoney">
+                    <br/>
+                    &yen;<input type="text" value="{{money.customer_funds}}" name="withdraw" style="color: #DD4F43">
+                    <input type="submit" value="Withdraw" name="submit" style="color: #DD4F43">
+                    {% csrf_token %}
                     <br/>
                     <input type="hidden" value="{{login}}" name="login">
                     {% for item in withdraw %}
                         <input type="submit" value="&yen;{{item}}" name="withdraw" style="color: #DD4F43">
                     {% endfor %}
-                    <br/>
-                    &yen;<input type="text" value="{{money.customer_funds}}" name="withdraw" style="color: #DD4F43">
-                    <input type="submit" value="Withdraw" name="submit" style="color: #DD4F43">
                 </form>
             </div>
         </center>
