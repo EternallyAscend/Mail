@@ -145,11 +145,20 @@ def User(request):
         else:
             content['empty']="Your Shopping Cart is Empty."
         return render(request,'shopping_cart.html',content)
-    if str(request.POST['botton'])=="":
+    if str(request.POST['button'])=="Manage Money":
         login = request.POST['login']
         content = {}
         content['login'] = login
-
+        sql="select customer_funds from customer where customer_id like %s;"
+        cursor.execute(sql,[login])
+        money=cursor.fetchall()
+        content['money']=money[0]
+        if int(money[0]['customer_funds'])>10:
+            withdraw=[]
+            temp=(money[0]['customer_funds']-money[0]['customer_funds']%10)/4
+            for i in range(0,3):
+                withdraw.append(temp*(i+1))
+            content['withdraw']=withdraw
         return render(request,'deposit.html',content)
 
 def Add(request):

@@ -20,7 +20,7 @@
                     <input type="submit" value="Shopping Cart" name="button">
                     <input type="submit" value="My Order" name="button">
                     <input type="submit" value="Logout" name="button">
-                    <input type="submit" value="Deposit Money" name="button">
+                    <input type="submit" value="Manage Money" name="button">
                 </form>
             </div>
         {% else %}
@@ -63,6 +63,13 @@
             <input type="reset" value="Reset">
             <input type="Submit" value="Login">
         </form>
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
+            <br/>
     </center>
     </div>
 </body>
