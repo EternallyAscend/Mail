@@ -12,7 +12,6 @@
         <div style="position: absolute; left: 10px; color: white; text-align: center; margin: 5px auto;">Online Mail</div>
         {% if login %}
             <div style="position: absolute; right: 20px;">
-
                 <form method="Post" action="/user" style="vertical-align: middle;">
                     {% csrf_token %}
                     <span style="color: white; font-size: 10px;">Current Account: {{login}}</span>
@@ -51,8 +50,16 @@
         <center>
 
         <h2>Login</h2>
+
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
         <h4 style="color: red;">{{wrong}}</h4>
         <h4>{{register}}</h4>
+            <h4>{{account}}</h4>
         <form method="Post" action="/finish_login">
             {% csrf_token %}
             Your Accounts: <input type="text" name="Account">
@@ -63,12 +70,6 @@
             <input type="reset" value="Reset">
             <input type="Submit" value="Login">
         </form>
-            <form method="Post" action="/index">
-                {% csrf_token %}
-                <input type="hidden" value="{{login}}" name="login">
-                <input type="hidden" value="" name="name">
-                <input type="submit" value="Go Index" name="Submit">
-            </form>
             <br/>
     </center>
     </div>

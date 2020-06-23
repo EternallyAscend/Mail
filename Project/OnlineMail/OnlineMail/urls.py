@@ -20,7 +20,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^index$', OnlineMail.Show_Index),
     # url(r'^register$',OnlineMail.Register),
-    # url(r'^finish_register$',OnlineMail.Finish_Register),
+    url(r'^finish_register$',OnlineMail.Finish_Register),
     url(r'^login$',OnlineMail.Login),
     url(r'^finish_login$',OnlineMail.Finish_Login),
     url(r'^user$',OnlineMail.User), # Index User to User Page.
