@@ -30,12 +30,12 @@
             <h4>Goods Last Week</h4>
                 <table border="1px">
                     <tr>
-                        <td>Good ID</td>
+                        <td>Name</td>
                         <td>Sales</td>
                     </tr>
                     {% for item in weekGoods %}
                         <tr>
-                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
                             <td>{{item.number}}</td>
                         </tr>
                     {% endfor %}
@@ -130,6 +130,131 @@
         </div>
     </center>
 </div>
+<!--    <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>-->
+<!--    &lt;!&ndash;    New Body&ndash;&gt;-->
+<!--    <div style="margin-top: 30px; width: 100%;">-->
+<!--    <center>-->
+<!--        <h3>View the Sale List</h3>-->
+<!--    {% if login %}-->
+<!--        <form method="Post" action="/index">-->
+<!--            {% csrf_token %}-->
+<!--            <input type="hidden" value="{{login}}" name="login">-->
+<!--            <input type="hidden" value="" name="name">-->
+<!--            <input type="submit" value="Go Index" name="Submit">-->
+<!--        </form>-->
+<!--    {% else %}-->
+<!--        <form method="Post" action="/index">-->
+<!--            {% csrf_token %}-->
+<!--            <input type="hidden" value="{{login}}" name="login">-->
+<!--            <input type="hidden" value="" name="name">-->
+<!--            <input type="submit" value="Go Index" name="Submit">-->
+<!--        </form>-->
+<!--    {% endif %}-->
+<!--        <div style="position: absolute; left: 0px; width: 50%; background-color: ;">-->
+<!--            {% if weekGoods %}-->
+<!--            <h4>Goods Last Week</h4>-->
+<!--                <table border="1px">-->
+<!--                    <tr>-->
+<!--                        <td>Good ID</td>-->
+<!--                        <td>Sales</td>-->
+<!--                    </tr>-->
+<!--                    {% for item in weekGoods %}-->
+<!--                        <tr>-->
+<!--                            <td>{{item.id}}</td>-->
+<!--                            <td>{{item.number}}</td>-->
+<!--                        </tr>-->
+<!--                    {% endfor %}-->
+<!--                </table>-->
+<!--            {% endif %}-->
+<!--            {% if weekTypes %}-->
+<!--            <h4>Types Last Week</h4>-->
+<!--                <table border="1px">-->
+<!--                    <tr>-->
+<!--                        <td>Type</td>-->
+<!--                        <td>Sales</td>-->
+<!--                    </tr>-->
+<!--                    {% for item in weekTypes %}-->
+<!--                        <tr>-->
+<!--                            <td>{{item.type}}</td>-->
+<!--                            <td>{{item.number}}</td>-->
+<!--                        </tr>-->
+<!--                    {% endfor %}-->
+<!--                </table>-->
+<!--            {% endif %}-->
+<!--            {% if top %}-->
+<!--            <h4>Goods Top 3</h4>-->
+<!--                <table border="1px">-->
+<!--                    <tr>-->
+<!--                        <td>Good ID</td>-->
+<!--                        <td>Sales</td>-->
+<!--                    </tr>-->
+<!--                    {% for item in top %}-->
+<!--                        <tr>-->
+<!--                            <td>{{item.order_detial_goods_id}}</td>-->
+<!--                            <td>{{item.count}}</td>-->
+<!--                        </tr>-->
+<!--                    {% endfor %}-->
+<!--                </table>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+<!--        <div style="position: absolute; right: 0px; width: 50%; background-color: ;">-->
+<!--            {% if MonthGoods %}-->
+<!--            <h4>Goods Last Month</h4>-->
+<!--                <table border="1px">-->
+<!--                    <tr>-->
+<!--                        <td>Good ID</td>-->
+<!--                        <td>Sales</td>-->
+<!--                    </tr>-->
+<!--                    {% for item in MonthGoods %}-->
+<!--                        <tr>-->
+<!--                            <td>{{item.id}}</td>-->
+<!--                            <td>{{item.number}}</td>-->
+<!--                        </tr>-->
+<!--                    {% endfor %}-->
+<!--                </table>-->
+<!--            {% endif %}-->
+<!--            {% if MonthTypes %}-->
+<!--            <h4>Types Last Month</h4>-->
+<!--                <table border="1px">-->
+<!--                    <tr>-->
+<!--                        <td>Type</td>-->
+<!--                        <td>Sales</td>-->
+<!--                    </tr>-->
+<!--                    {% for item in MonthTypes %}-->
+<!--                        <tr>-->
+<!--                            <td>{{item.type}}</td>-->
+<!--                            <td>{{item.number}}</td>-->
+<!--                        </tr>-->
+<!--                    {% endfor %}-->
+<!--                </table>-->
+<!--            {% endif %}-->
+<!--            {% if unsold %}-->
+<!--            <h4>Goods Bottom 3</h4>-->
+<!--            <table border="1px">-->
+<!--                    <tr>-->
+<!--                        <td>Good ID</td>-->
+<!--                        <td>Sales</td>-->
+<!--                    </tr>-->
+<!--                {% if bottom %}-->
+<!--                {% for item in bottom %}-->
+<!--                    <tr>-->
+<!--                        <td>{{item.order_detial_goods_id}}</td>-->
+<!--                        <td>{{item.count}}</td>-->
+<!--                    </tr>-->
+<!--                {% endfor %}-->
+<!--                {% endif %}-->
+<!--                {% for item in unsold %}-->
+<!--                    <tr>-->
+<!--                        <td>{{item.goods_id}}</td>-->
+<!--                        <td>0</td>-->
+<!--                    </tr>-->
+<!--                {% endfor %}-->
+<!--            {% endif %}-->
+<!--        </table>-->
+<!--    <br/><br/>-->
+<!--        </div>-->
+<!--    </center>-->
+<!--</div>-->
 <!--    User Information and Operations-->
     <div style="position: fixed; left: 0px; top: 0px; width: 100%; background-color:orange; height: 30px;">
         <div style="position: absolute; left: 10px; color: white; text-align: center; margin: 5px auto;">Online Mail</div>
