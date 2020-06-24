@@ -29,46 +29,95 @@
         </form>
         </div>
             <h4>{{Result}}</h4>
+            {% if Goods %}
             <table border="1px silver">
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Information</th>
-            <th>Remaining</th>
-            {% if login %}
-            <th>Add</th>
-            <th>Buy</th>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td>Shop</td>
+                    <td>Price</td>
+                    <td>Information</td>
+                    <td>Remaining</td>
+                    {% if login %}
+                    <td>Add</td>
+                    <td>Buy</td>
+                    {% endif %}
+                </tr>
+                {% for item in Goods %}
+                    <tr>
+                        <td>{{item.goods_id}}</td>
+                        <td>{{item.goods_name}}</td>
+                        <td>{{item.goods_type}}</td>
+                        <td>{{item.shop_name}}</td>
+                        <td>{{item.goods_price}}</td>
+                        <td>{{item.goods_information}}</td>
+                        <td>{{item.goods_number}}</td>
+<!--                        Add Remark here.-->
+                        {% if login %}
+                        <td>
+                            <form method="Post" action="/add">
+                                {% csrf_token %}
+                                <input type="hidden" name="login" value="{{login}}">
+                                <input type="hidden" name="goods_id" value="{{item.goods_id}}">
+                                <input type="submit" name="Add" value="Add">
+                            </form>
+                        </td>
+                        <td>
+                            <form method="Post" action="/buy">
+                                {% csrf_token %}
+                                <input type="hidden" name="login" value="{{login}}">
+                                <input type="hidden" name="goods_id" value="{{item.goods_id}}">
+                                <input type="submit" name="Buy" value="Buy">
+                            </form>
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <h3>Empty</h3>
             {% endif %}
-        </tr>
-        {% for item in Goods%}
-        <tr>
-            <th>{{item.Goods_Name}}</th>
-            <th>{{item.Goods_Type}}</th>
-            <th>{{item.Goods_Price}}</th>
-            <th>{{item.Goods_Information}}</th>
-            <th>{{item.Goods_Number}}</th>
-            {% if login %}
-            <th>
-                <form method="Post" action="/add">
-                    {% csrf_token %}
-                    <input type="hidden" name="login" value="{{login}}">
-                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">
-                    <input type="submit" name="Add" value="Add">
-                </form>
-            </th>
-            <th>
-                <form method="Post" action="/buy">
-                    {% csrf_token %}
-                    <input type="hidden" name="login" value="{{login}}">
-                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">
-                    <input type="submit" name="Buy" value="Buy">
-                </form>
-            </th>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
+<!--            <table border="1px silver">-->
+<!--        <tr>-->
+<!--            <th>Name</th>-->
+<!--            <th>Type</th>-->
+<!--            <th>Price</th>-->
+<!--            <th>Information</th>-->
+<!--            <th>Remaining</th>-->
+<!--            {% if login %}-->
+<!--            <th>Add</th>-->
+<!--            <th>Buy</th>-->
+<!--            {% endif %}-->
+<!--        </tr>-->
+<!--        {% for item in Goods%}-->
+<!--        <tr>-->
+<!--            <th>{{item.Goods_Name}}</th>-->
+<!--            <th>{{item.Goods_Type}}</th>-->
+<!--            <th>{{item.Goods_Price}}</th>-->
+<!--            <th>{{item.Goods_Information}}</th>-->
+<!--            <th>{{item.Goods_Number}}</th>-->
+<!--            {% if login %}-->
+<!--            <th>-->
+<!--                <form method="Post" action="/add">-->
+<!--                    {% csrf_token %}-->
+<!--                    <input type="hidden" name="login" value="{{login}}">-->
+<!--                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">-->
+<!--                    <input type="submit" name="Add" value="Add">-->
+<!--                </form>-->
+<!--            </th>-->
+<!--            <th>-->
+<!--                <form method="Post" action="/buy">-->
+<!--                    {% csrf_token %}-->
+<!--                    <input type="hidden" name="login" value="{{login}}">-->
+<!--                    <input type="hidden" name="goods_id" value="{{item.Goods_ID}}">-->
+<!--                    <input type="submit" name="Buy" value="Buy">-->
+<!--                </form>-->
+<!--            </th>-->
+<!--            {% endif %}-->
+<!--        </tr>-->
+<!--        {% endfor %}-->
+<!--    </table>-->
         </center>
     </div>
 <!--    User Information and Operations-->
