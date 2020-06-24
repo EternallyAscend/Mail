@@ -843,11 +843,11 @@ def Show_List(request):
     sql="call viewSaleListWeek();"
     cursor.execute(sql)
     cursor.fetchall()
-    sql="select * from salelist;"
+    sql="select * from salelist order by number desc;"
     cursor.execute(sql)
     weekGoods=cursor.fetchall()
     content['weekGoods']=weekGoods
-    sql="select * from typelist;"
+    sql="select * from typelist order by number desc;"
     cursor.execute(sql)
     weekTypes=cursor.fetchall()
     content['weekTypes']=weekTypes
@@ -855,27 +855,27 @@ def Show_List(request):
     sql = "call viewSaleListMonth();"
     cursor.execute(sql)
     cursor.fetchall()
-    sql = "select * from salelist;"
+    sql = "select * from salelist order by number desc;"
     cursor.execute(sql)
     MonthGoods = cursor.fetchall()
     content['MonthGoods']=MonthGoods
-    sql = "select * from typelist;"
+    sql = "select * from typelist order by number desc;"
     cursor.execute(sql)
     MonthTypes = cursor.fetchall()
     content['MonthTypes']=MonthTypes
 
-    sql="select count(Order_detial_Number) as count,order_detial_goods_id from order_detial where order_detial_status='F' group by order_detial_goods_id order by count(Order_Detial_Number) desc limit 3;"
+    sql="select sum(Order_detial_Number) as count,order_detial_goods_id, goods_name from order_detial, goods where order_detial_status='F' and order_detial.order_detial_goods_id=goods.goods_id group by order_detial_goods_id order by sum(Order_Detial_Number) desc limit 3;"
     cursor.execute(sql)
     top=cursor.fetchall()
     content['top']=top
 
-    sql="select goods_id from goods left join order_detial on goods.goods_id=order_detial.order_detial_goods_id and order_detial.order_detial_status='F'  where order_detial.order_detial_goods_id is null;"
+    sql="select goods_id, goods_name from goods left join order_detial on goods.goods_id=order_detial.order_detial_goods_id and order_detial.order_detial_status='F' where order_detial.order_detial_goods_id is null;"
     lines=cursor.execute(sql)
     unsold=cursor.fetchall()
     if lines>=3:
         content['unsold']=unsold[0:3]
     else:
-        sql="select count(Order_detial_Number) as count,order_detial_goods_id from order_detial where order_detial_status='F' group by order_detial_goods_id order by count(Order_Detial_Number) limit %s;"
+        sql="select sum(Order_detial_Number) as count, order_detial_goods_id, goods_name from order_detial, goods where order_detial_status='F' and order_detial.order_detial_goods_id=goods.goods_id group by order_detial_goods_id order by sum(Order_Detial_Number) limit %s;"
         cursor.execute(sql,[int(3-lines)])
         bottom=cursor.fetchall()
         content['bottom']=bottom

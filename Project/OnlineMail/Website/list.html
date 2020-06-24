@@ -30,11 +30,13 @@
             <h4>Goods Last Week</h4>
                 <table border="1px">
                     <tr>
+                        <td>ID</td>
                         <td>Name</td>
                         <td>Sales</td>
                     </tr>
                     {% for item in weekGoods %}
                         <tr>
+                            <td>{{item.id}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.number}}</td>
                         </tr>
@@ -60,12 +62,14 @@
             <h4>Goods Top 3</h4>
                 <table border="1px">
                     <tr>
-                        <td>Good ID</td>
+                        <td>ID</td>
+                        <td>Name</td>
                         <td>Sales</td>
                     </tr>
                     {% for item in top %}
                         <tr>
                             <td>{{item.order_detial_goods_id}}</td>
+                            <td>{{item.goods_name}}</td>
                             <td>{{item.count}}</td>
                         </tr>
                     {% endfor %}
@@ -77,12 +81,14 @@
             <h4>Goods Last Month</h4>
                 <table border="1px">
                     <tr>
-                        <td>Good ID</td>
+                        <td>ID</td>
+                        <td>Name</td>
                         <td>Sales</td>
                     </tr>
                     {% for item in MonthGoods %}
                         <tr>
                             <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
                             <td>{{item.number}}</td>
                         </tr>
                     {% endfor %}
@@ -107,13 +113,15 @@
             <h4>Goods Bottom 3</h4>
             <table border="1px">
                     <tr>
-                        <td>Good ID</td>
+                        <td>ID</td>
+                        <td>Name</td>
                         <td>Sales</td>
                     </tr>
                 {% if bottom %}
                 {% for item in bottom %}
                     <tr>
                         <td>{{item.order_detial_goods_id}}</td>
+                        <td>{{item.goods_name}}</td>
                         <td>{{item.count}}</td>
                     </tr>
                 {% endfor %}
@@ -121,6 +129,7 @@
                 {% for item in unsold %}
                     <tr>
                         <td>{{item.goods_id}}</td>
+                        <td>{{item.goods_name}}</td>
                         <td>0</td>
                     </tr>
                 {% endfor %}
