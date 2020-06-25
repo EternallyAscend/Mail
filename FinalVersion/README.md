@@ -2,7 +2,7 @@
 
 <p align="right">2020.06.22 Mon. 1813045 于海龙</p>
 
-
+项目本地使用用户名为root，密码为root的MySQL用户。
 
 ```
 __ Django -- Django 项目目录
