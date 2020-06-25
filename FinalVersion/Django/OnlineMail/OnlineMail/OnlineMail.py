@@ -183,7 +183,6 @@ def Add(request):
                 sql="select * from goods where Goods_ID = %s;"
                 cursor.execute(sql, [data[i]['Shopping_Cart_Goods_ID']])
                 good_info = cursor.fetchall()
-                print(good_info[0])
                 data[i].update(good_info[0])
             content['shopping_cart'] = data
         else:
@@ -202,7 +201,6 @@ def Add(request):
                 sql="select * from goods where Goods_ID = %s;"
                 cursor.execute(sql,[data[i]['Shopping_Cart_Goods_ID']])
                 good_info=cursor.fetchall()
-                print(good_info[0])
                 data[i].update(good_info[0])
             content['shopping_cart']=data
         else:
@@ -378,7 +376,6 @@ def Order_Manage(request):
         database.commit()
         pass
     if operation=="Cancel":
-        print(status)
         if status=="D" or "R":
             if status=="R":
                 sql = "select order_detial_goods_id, order_detial_price, order_detial_number from order_detial where order_detial_customer_order_id = %s;"
@@ -593,7 +590,6 @@ def manageMoney(request):
     except:
         try:
             withdraw=request.POST['withdraw']
-            print(withdraw)
             withdraw=str(withdraw)
             if withdraw[0]=='¥':
                 withdraw=withdraw[1:]
