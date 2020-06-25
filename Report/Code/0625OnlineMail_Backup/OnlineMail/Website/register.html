@@ -1,77 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Order Information</title>
+    <title>Register for Online Mail</title>
+    <meta charset="UTF-8" lang="en">
+
 </head>
 <body>
-    <!--    New Body-->
-        <div style="margin-top: 30px; width: 100%;">
-    {% if login %}
-        {% if empty %}
-            <center>
-                <h3>{{empty}}</h3>
-            </center>
-        {% else %}
-        <center>
-            <h3>Your Order Information of ID: {{orderID}}</h3>
-            <form method="Post" action="/index">
-                {% csrf_token %}
-                <input type="hidden" value="{{login}}" name="login">
-                <input type="hidden" value="" name="name">
-                <input type="submit" value="Go Index" name="Submit">
-            </form>
-            <br/>
-            <table border="1px">
-                <tr>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Type</td>
-                    <td>Price (&yen;)</td>
-                    <td>Number</td>
-                    <td>Total</td>
-                    <td>Seller</td>
-                    <td>Time</td>
-                </tr>
-<!--                {{ order }}-->
-                {% for item in order%}
-                    <tr>
-                        <td>
-                            {{item.goods_id}}
-                        </td>
-                        <td>
-                            {{item.goods_name}}
-                        </td>
-                        <td>
-                            {{item.goods_type}}
-                        </td>
-                        <td>
-                            {{item.goods_price}}
-                        </td>
-                        <td>
-                            {{item.goods_number}}
-                        </td>
-                        <td>
-                            {{item.price}}
-                        </td>
-                        <td>
-                            {{item.seller_name}}
-                        </td>
-                        <td>
-                            {{ item.time }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </center>
-        {% endif %}
-    {% else %}
-        <center>
-            <h3 style="color: red;">You need to login in order to find your order.</h3>
-        </center>
-    {% endif %}
-    </div>
+    <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>
+    <center>
+        <h2>Customer Register</h2>
+        <form method="Post" action="/index">
+            {% csrf_token %}
+            <input type="hidden" value="{{login}}" name="login">
+            <input type="hidden" value="" name="name">
+            <input type="submit" value="Go Index" name="Submit">
+        </form>
+    </center>
+    <br/>
 
+
+    <center><span style="color: red;">{{Result}}</span></center>
+    <form method="Post" action="/finish_register">
+        {% csrf_token %}
+        <center>
+            Your Telephone: <input type="text" name="Tel">
+            <br/>
+            Your Real Name: <input type="text" name="name">
+            <br/>
+            Your Nick Name: <input type="text" name="Nickname">
+            <br/>
+            E-mail Address: <input type="test" name="email">
+            <br/>
+            Your Gender is: <input type="radio" name="gender" value="Male" checked>Male
+            <input type="radio" name="gender" value="Female"> Female
+            <br/>
+            Your Password:  <input type="password" name="Password">
+            <br/>
+            Password Again: <input type="password" name="Pwd">
+            <br/>
+            <br/>
+            <input type="submit" name="Submit" value="Submit">
+            <input type="reset" value="Reset">
+        </center>
+    </form>
 
 <!--    User Information and Operations-->
     <div style="position: fixed; left: 0px; top: 0px; width: 100%; background-color:orange; height: 30px;">

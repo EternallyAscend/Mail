@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^finish_register$',OnlineMail.Finish_Register),
     url(r'^login$',OnlineMail.Login),
     url(r'^finish_login$',OnlineMail.Finish_Login),
-    url(r'^user$',OnlineMail.User),
+    url(r'^user$',OnlineMail.User), # Index User to User Page.
     url(r'^add$',OnlineMail.Add),
     url(r'^buy$',OnlineMail.Buy),
     url(r'^order_manage$',OnlineMail.Order_Manage),

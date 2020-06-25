@@ -1,84 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Order Information</title>
+    <title>Online Mail</title>
+    <meta charset="UTF-8" lang="en">
+
 </head>
 <body>
-    <!--    New Body-->
-        <div style="margin-top: 30px; width: 100%;">
-    {% if login %}
-        {% if empty %}
-            <center>
-                <h3>{{empty}}</h3>
-            </center>
-        {% else %}
-        <center>
-            <h3>Your Order Information of ID: {{orderID}}</h3>
-            <form method="Post" action="/index">
-                {% csrf_token %}
-                <input type="hidden" value="{{login}}" name="login">
-                <input type="hidden" value="" name="name">
-                <input type="submit" value="Go Index" name="Submit">
-            </form>
-            <br/>
-            <table border="1px">
-                <tr>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Type</td>
-                    <td>Price (&yen;)</td>
-                    <td>Number</td>
-                    <td>Total</td>
-                    <td>Seller</td>
-                    <td>Time</td>
-                </tr>
-<!--                {{ order }}-->
-                {% for item in order%}
-                    <tr>
-                        <td>
-                            {{item.goods_id}}
-                        </td>
-                        <td>
-                            {{item.goods_name}}
-                        </td>
-                        <td>
-                            {{item.goods_type}}
-                        </td>
-                        <td>
-                            {{item.goods_price}}
-                        </td>
-                        <td>
-                            {{item.goods_number}}
-                        </td>
-                        <td>
-                            {{item.price}}
-                        </td>
-                        <td>
-                            {{item.seller_name}}
-                        </td>
-                        <td>
-                            {{ item.time }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </center>
-        {% endif %}
-    {% else %}
-        <center>
-            <h3 style="color: red;">You need to login in order to find your order.</h3>
-        </center>
-    {% endif %}
-    </div>
-
-
+    <div style="position: fixed; left -100px; top: -100px;"><h1>Online Mail</h1></div>
 <!--    User Information and Operations-->
     <div style="position: fixed; left: 0px; top: 0px; width: 100%; background-color:orange; height: 30px;">
         <div style="position: absolute; left: 10px; color: white; text-align: center; margin: 5px auto;">Online Mail</div>
         {% if login %}
             <div style="position: absolute; right: 20px;">
-
                 <form method="Post" action="/user" style="vertical-align: middle;">
                     {% csrf_token %}
                     <span style="color: white; font-size: 10px;">Current Account: {{login}}</span>
@@ -110,6 +43,34 @@
         <center>
             <div id="BottomTime" style="font-size: 15px; color: white; width: 200px;"></div>
         </center>
+    </div>
+
+<!--    New Body-->
+    <div style="margin-top: 30px; width: 100%;">
+        <center>
+
+        <h2>Login</h2>
+            <form method="Post" action="/index">
+                {% csrf_token %}
+                <input type="hidden" value="{{login}}" name="login">
+                <input type="hidden" value="" name="name">
+                <input type="submit" value="Go Index" name="Submit">
+            </form>
+        <h4 style="color: red;">{{wrong}}</h4>
+        <h4>{{register}}</h4>
+            <h4>{{account}}</h4>
+        <form method="Post" action="/finish_login">
+            {% csrf_token %}
+            Your Accounts: <input type="text" name="Account">
+            <br/>
+            Your Password: <input type="password" name="Password">
+            <br/>
+            <br/>
+            <input type="reset" value="Reset">
+            <input type="Submit" value="Login">
+        </form>
+            <br/>
+    </center>
     </div>
 </body>
 <script type="text/javascript">
